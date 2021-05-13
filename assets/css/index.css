@@ -1,0 +1,44 @@
+@font-face {
+    font-family: lato;
+    src: url("/assets/fonts/Lato-Regular.ttf");
+}
+
+@font-face {
+    font-family: notoserif;
+    src: url("/assets/fonts/NotoSerif-Regular.ttf");
+}
+
+* {
+    font-family: "lato";
+}
+
+h1, h2, h3, h4 {
+    font-family: "notoserif";
+    font-weight: bold;
+}
+
+.gallery-images img{
+    height: 100%;
+    width: 100%;
+}
+
+.espai, .exposicio {
+    border: black 1px solid;
+    box-sizing: border-box;
+}
+
+.espai h3 > a, .exposicio h3 > a {
+    text-decoration: none;
+    color: black
+}
+
+.comentari {
+    border: 1px solid black;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+/* footer {
+    background-color: black;
+    color: white;
+} */
