@@ -1,5 +1,19 @@
 <?php
+if (!key_exists("registre", $_REQUEST)) { header("Location: espais.php"); }
+$registre = $_REQUEST["registre"];
+
 require_once "header.html";
+require_once "back/db.php";
+
+if (key_exists("nom", $_REQUEST) && key_exists("mail", $_REQUEST) && key_exists("comentari", $_REQUEST) && key_exists("registre", $_REQUEST)) {
+    $query = $conexio->prepare("INSERT INTO comentaris (usuari_email, espai_registre, fecha, hora, comentari) values (?, ?, ?, ?, ?)");
+    $query->bind_param("sssss", $_REQUEST["mail"]);
+}
+
+echo date("Y-m-d");
+
+echo date("H:i:s");
+
 ?>
 
 <div class="container">
@@ -71,6 +85,7 @@ require_once "header.html";
 
 <div class="container">
     <form>
+        <input type="hidden" name="registre" value="<?= $registre ?>">
         <div class="row mt-2">
             <div class="col-3"></div>
             <div class="col">
@@ -86,25 +101,14 @@ require_once "header.html";
         <div class="row mt-2">
             <div class="col-3"></div>
             <div class="col">
-                <label for="">Comentari</label>
-                <div class="form-group"><div class="container espai p-4 mt-3">
-    <div class="row">
-        <div class="col">
-            <h3><a href="espai.php">Es Baluart</a></h3>
+                <div class="form-group">
+                    <label for="comentar">Comentari</label>
+                    <textarea class="form-control" name="comentar" id="comentar" rows="3" required></textarea>
+                </div>
+            </div>
+            <div class="col-3"></div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="">Es troba al baluard de Sant Pere, formant part de l'recinte emmurallat renaixentista que envoltava Palma fins a principis de segle XX. Un conjunt arquitectònic en el qual s'ha integrat el modern edifici dissenyat pels germans Lluís i Jaume García -Ruiz, Vicente Tomás i Ángel Sánchez. Està dividit en tres plantes que es relacionen amb l'exterior, les muralles i entre si mitjançant rampes, claraboies i grans balcons interiors.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">Municipi: Palma</div>
-        <div class="col">Adreça: Plaça de la Porta de Santa Catalina, 10</div>
-    </div>
-</div>
-        </div>
-        <div class="row mt-2">
+        <div class="row mt-3">
             <div class="col-3"></div>
             <div class="col">
                 <input type="submit" class="btn btn-primary" value="Comenta">
@@ -116,26 +120,38 @@ require_once "header.html";
 
 <h3 class="text-center mt-3">Comentaris dels ususaris</h3>
 
-<div class="container mb-5">
+<?php
+
+$query = $conexio->prepare("SELECT * FROM comentaris WHERE espai_registre = ? LIMIT 5");
+$query->bind_param("s", $registre);
+$query->execute();
+$comentaris = $query->get_result();
+
+while ($comentari = $comentaris->fetch_object()) {
+    ?>
+    <div class="container mb-5">
     <div class="row">
         <div class="col-2"></div>
         <div class="col-2">
             <div class="row">
                 <div class="col">
-                    <p>Nom</p>
+                    <p><?= $comentari->usuari_email ?></p>
                 </div>
             </div>
             <div class="row">
-                <div class="col">Data</div>
-                <div class="col">Hora</div>
+                <div class="col"><?= $comentari->fecha ?></div>
+                <div class="col"><?= $comentari->hora ?></div>
             </div>
         </div>
         <div class="col-6">
-            <div class="comentari">El meu comentari es</div>
+            <div class="comentari"><?= $comentari->comentari ?></div>
         </div>
         <div class="col-2"></div>
     </div>
 </div>
+    <?php
+}
+?>
 
 <?php
 require_once "footer.html";

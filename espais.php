@@ -2,18 +2,19 @@
 require_once "header.html";
 
 require_once "back/db.php";
+
 ?>
 
 <h1 class="text-center mt-3">Espais</h1>
 
 <h2 class="text-center">Cercador d'espais</h2>
 <div class="container my-4">
-    <form id="espaisform">
+    <form id="espaisform" method="GET">
         <div class="form-group row text-center">
             <div class="col-4"></div>
             <div class="col">
                 <label for="nom">Nom:</label>
-                <input type="text" placeholder="Nom" name="nom" id="nom" />
+                <input type="text" placeholder="Nom" name="nom" id="nom" pattern="[a-z]*"/>
                 <input type="submit" value="Cercar" class="btn btn-primary" />
             </div>
             <div class="col-4"></div>
@@ -25,9 +26,19 @@ require_once "back/db.php";
 
 <?php
 
-$query = $conexio->prepare("SELECT espais.*, municipi.nom as municipi_nom FROM espais INNER JOIN municipi ON municipi.id = espais.municipi_id");
-$query->execute();
-$espais = $query->get_result();
+$nom = "";
+
+if (key_exists("nom", $_REQUEST)) {
+    $nom = $_REQUEST["nom"];
+    $query = $conexio->prepare("SELECT espais.*, municipi.nom as municipi_nom FROM espais INNER JOIN municipi ON municipi.id = espais.municipi_id WHERE espais.nom like '%".$nom."%'");
+    // $query->bind_param("s", $nom);
+    $query->execute();
+    $espais = $query->get_result();
+} else {
+    $query = $conexio->prepare("SELECT espais.*, municipi.nom as municipi_nom FROM espais INNER JOIN municipi ON municipi.id = espais.municipi_id");
+    $query->execute();
+    $espais = $query->get_result();
+}
 
 if ($espais->num_rows > 0) {
     while ($espai = $espais->fetch_object()) {
@@ -36,7 +47,7 @@ if ($espais->num_rows > 0) {
         <div class="container espai p-4 mt-3">
             <div class="row">
                 <div class="col">
-                    <h3><a href="espai.php"><?= $espai->nom ?></a></h3>
+                    <h3><a href="espai.php?registre=<?= $espai->registre ?>"><?= $espai->nom ?></a></h3>
                 </div>
             </div>
             <div class="row">
