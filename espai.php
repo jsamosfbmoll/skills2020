@@ -1,18 +1,23 @@
 <?php
-if (!key_exists("registre", $_REQUEST)) { header("Location: espais.php"); }
+if (!key_exists("registre", $_REQUEST)) {
+    header("Location: espais.php");
+}
 $registre = $_REQUEST["registre"];
 
 require_once "header.html";
 require_once "back/db.php";
 
-if (key_exists("nom", $_REQUEST) && key_exists("mail", $_REQUEST) && key_exists("comentari", $_REQUEST) && key_exists("registre", $_REQUEST)) {
+if (key_exists("nom", $_REQUEST) && key_exists("mail", $_REQUEST) && key_exists("comentar", $_REQUEST) && key_exists("registre", $_REQUEST)) {
     $query = $conexio->prepare("INSERT INTO comentaris (usuari_email, espai_registre, fecha, hora, comentari) values (?, ?, ?, ?, ?)");
-    $query->bind_param("sssss", $_REQUEST["mail"]);
+    $query->bind_param("sssss", $_REQUEST["mail"], $_REQUEST["registre"], date("Y-m-d"), date("H:i:s"), $_REQUEST["comentar"]);
+    if (!$query->execute()) {
+        echo "<script>alert('No se ha insertat el comentari')</script>";
+    }
 }
 
-echo date("Y-m-d");
+// echo date("Y-m-d");
 
-echo date("H:i:s");
+// echo date("H:i:s");
 
 ?>
 
@@ -128,28 +133,28 @@ $query->execute();
 $comentaris = $query->get_result();
 
 while ($comentari = $comentaris->fetch_object()) {
-    ?>
+?>
     <div class="container mb-5">
-    <div class="row">
-        <div class="col-2"></div>
-        <div class="col-2">
-            <div class="row">
-                <div class="col">
-                    <p><?= $comentari->usuari_email ?></p>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-2">
+                <div class="row">
+                    <div class="col">
+                        <p><?= $comentari->usuari_email ?></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"><?= $comentari->fecha ?></div>
+                    <div class="col"><?= $comentari->hora ?></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col"><?= $comentari->fecha ?></div>
-                <div class="col"><?= $comentari->hora ?></div>
+            <div class="col-6">
+                <div class="comentari"><?= $comentari->comentari ?></div>
             </div>
+            <div class="col-2"></div>
         </div>
-        <div class="col-6">
-            <div class="comentari"><?= $comentari->comentari ?></div>
-        </div>
-        <div class="col-2"></div>
     </div>
-</div>
-    <?php
+<?php
 }
 ?>
 
