@@ -8,13 +8,43 @@
     src: url("/assets/fonts/NotoSerif-Regular.ttf");
 }
 
+/*
+colors
+#90caf9
+#c3fdff
+#5d99c6
+#aed581
+#e1ffb1
+#7da453
+*/
+
 * {
     font-family: "lato";
+}
+
+body {
+    background-color: #c3fdff;
 }
 
 h1, h2, h3, h4 {
     font-family: "notoserif";
     font-weight: bold;
+}
+
+h1 {
+    color: #5d99c6;
+}
+
+a {
+    color: #7da453;
+}
+
+table {
+    background-color: #e1ffb1;
+}
+
+.btn-primary {
+    background-color: #5d99c6;
 }
 
 .gallery-images img{
@@ -37,6 +67,8 @@ h1, h2, h3, h4 {
     box-sizing: border-box;
     height: 100%;
 }
+
+
 
 /* footer {
     background-color: black;

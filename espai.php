@@ -67,6 +67,45 @@ require_once "header.html";
 
 <h2 class="text-center mt-5">Comentaris</h2>
 
+<h3 class="text-center mt-3">Afegeix un comentari</h3>
+
+<div class="container">
+    <form>
+        <div class="row mt-2">
+            <div class="col-3"></div>
+            <div class="col">
+                <label for="nom">Nom</label>
+                <input type="text" class="form-control" name="nom" id="nom" required pattern="[A-Z][a-z]*">
+            </div>
+            <div class="col">
+                <label for="mail">Email</label>
+                <input type="email" class="form-control" name="mail" id="mail" required>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3"></div>
+            <div class="col">
+                <label for="">Comentari</label>
+                <div class="form-group">
+                    <label for="comentar"></label>
+                    <textarea class="form-control" name="comentar" id="comentar" rows="3" required></textarea>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-3"></div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="Comenta">
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </form>
+</div>
+
+<h3 class="text-center mt-3">Comentaris dels ususaris</h3>
+
 <div class="container mb-5">
     <div class="row">
         <div class="col-2"></div>

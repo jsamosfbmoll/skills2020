@@ -6,7 +6,7 @@ require_once "header.html";
 
 <h2 class="text-center">Cercador d'espais</h2>
 <div class="container my-4">
-    <form>
+    <form id="espaisform">
         <div class="form-group row text-center">
             <div class="col-4"></div>
             <div class="col">

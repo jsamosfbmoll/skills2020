@@ -6,12 +6,12 @@ require_once "header.html";
 
 <div class="container">
     <div class="row">
-        <form>
+        <form id="registraform">
             <div class="row mt-2">
                 <div class="col-3"></div>
                 <div class="col">
                     <label for="nom">Nom</label>
-                    <input type="text" class="form-control" name="nom" id="nom">
+                    <input type="text" class="form-control" name="nom" id="nom" required pattern="[A-Z][a-z]*">
                 </div>
                 <div class="col">
                     <label for="llinatges">Llinatges</label>
@@ -23,11 +23,11 @@ require_once "header.html";
                 <div class="col-3"></div>
                 <div class="col">
                     <label for="dni">DNI</label>
-                    <input type="text" class="form-control" name="dni" id="dni">
+                    <input type="text" class="form-control" name="dni" id="dni" required pattern="[0-9]{8}[A-Z]">
                 </div>
                 <div class="col">
                     <label for="telefon">Telefon</label>
-                    <input type="tel" class="form-control" name="telefon" id="telefon">
+                    <input type="tel" class="form-control" name="telefon" id="telefon" pattern="[0-9]{9}">
                 </div>
                 <div class="col-3"></div>
             </div>
@@ -35,11 +35,11 @@ require_once "header.html";
                 <div class="col-3"></div>
                 <div class="col">
                     <label for="mail">Email</label>
-                    <input type="email" class="form-control" name="mail" id="mail">
+                    <input type="email" class="form-control" name="mail" id="mail" required>
                 </div>
                 <div class="col">
                     <label for="password">Contrasenya</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="password" class="form-control" name="password" id="password" required />
                 </div>
                 <div class="col-3"></div>
             </div>
@@ -53,17 +53,6 @@ require_once "header.html";
         </form>
     </div>
 </div>
-
-<!--
-<usuari>
-<nom>Maria</nom>
-<llinatges>Arbona Sureda</llinatges>
-<dni>18224566K</dni>
-<telefon>687542163</telefon>
-<email>mariaarbona45@gmail.com</email>
-<password>12345678</password>
-</usuari>
--->
 
 <?php
 require_once "footer.html";
