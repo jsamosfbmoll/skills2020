@@ -1,5 +1,17 @@
 <?php
 require_once "header.html";
+require_once "back/db.php";
+
+if (isset($_REQUEST["password"]) && isset($_REQUEST["mail"])) {
+    $query = $conexio->prepare("SELECT * FROM usuaris WHERE email = ? AND contrasenya = ?");
+    $query->bind_param("ss", $_REQUEST["mail"], $_REQUEST["password"]);
+    $usuari = $query->get_result();
+    if ($usuari->num_rows) {
+        session_start();
+        $_SESSION[$usuari->fetch_object()->mail];
+    }
+}
+
 ?>
 
 <h1 class="text-center">Inicia</h1>

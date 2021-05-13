@@ -89,7 +89,7 @@ if (key_exists("nom", $_REQUEST) && key_exists("mail", $_REQUEST) && key_exists(
 <h3 class="text-center mt-3">Afegeix un comentari</h3>
 
 <div class="container">
-    <form>
+    <form method="POST">
         <input type="hidden" name="registre" value="<?= $registre ?>">
         <div class="row mt-2">
             <div class="col-3"></div>
